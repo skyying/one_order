@@ -6,7 +6,7 @@ class FoodController < ApplicationController
   end
 
   def other_food
-    grouped_food_meal_ids = MealFood.all.group_by { |x| x.food_id }
+    grouped_food_meal_ids = MealFood.all.group_by { |meal_food| meal_food.food_id }
 
     food_ids_in_meals = grouped_food_meal_ids.map do |key, value|
       ids = value.map(&:meal_id).map { |id| MealFood.joins(:meal).where(meal_id: id).all.map { |food| food.food_id }}
